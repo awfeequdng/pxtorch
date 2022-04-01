@@ -1,4 +1,6 @@
 #pragma once
+#include <cstdint>
+
 #include "pxml/macros/export.hh"
 
 namespace pxml {
@@ -56,6 +58,100 @@ template <typename T, class Context>
 PXTORCH_API void Erf(int N, const T* X, T* Y, Context* context);
 template <typename T, class Context>
 PXTORCH_API void CdfNorm(int N, const T* X, T* Y, Context* context);
+
+template <typename T, class Context>
+PXTORCH_API void Set(std::int64_t N, T alpha, T* X, Context* context);
+
+template <typename TAlpha, typename TData, class Context>
+PXTORCH_API void
+Scale(std::int64_t N, TAlpha alpha, const TData* X, TData* Y, Context* context);
+
+// Different from the Scale function above, if alpha is passed in as a pointer,
+// we will assume that it lives on the Context device, for example on GPU.
+template <typename TAlpha, typename TData, class Context>
+PXTORCH_API void Scale(
+    std::int64_t N,
+    const TAlpha* alpha,
+    const TData* X,
+    TData* Y,
+    Context* context);
+
+template <typename T, class Context>
+PXTORCH_API void Add(int N, const T* A, const T* B, T* C, Context* context);
+template <typename T, class Context>
+PXTORCH_API void Sub(int N, const T* A, const T* B, T* C, Context* context);
+template <typename T, class Context>
+PXTORCH_API void Mul(int N, const T* A, const T* B, T* C, Context* context);
+template <typename T, class Context>
+PXTORCH_API void Div(int N, const T* A, const T* B, T* C, Context* context);
+
+template <typename T, class Context>
+PXTORCH_API void Min(int N, const T* A, const T* B, T* C, Context* context);
+template <typename T, class Context>
+PXTORCH_API void Max(int N, const T* A, const T* B, T* C, Context* context);
+
+template <typename T, class Context>
+PXTORCH_API void And(int N, const T* A, const T* B, T* C, Context* context);
+template <typename T, class Context>
+PXTORCH_API void Or(int N, const T* A, const T* B, T* C, Context* context);
+template <typename T, class Context>
+PXTORCH_API void Xor(int N, const T* A, const T* B, T* C, Context* context);
+
+template <typename T, class Context>
+PXTORCH_API void
+BitwiseAnd(int N, const T* A, const T* B, T* C, Context* context);
+template <typename T, class Context>
+PXTORCH_API void
+BitwiseOr(int N, const T* A, const T* B, T* C, Context* context);
+template <typename T, class Context>
+PXTORCH_API void
+BitwiseXor(int N, const T* A, const T* B, T* C, Context* context);
+
+template <typename T, class Context>
+PXTORCH_API void EQ(int N, const T* A, const T* B, bool* C, Context* context);
+template <typename T, class Context>
+PXTORCH_API void NE(int N, const T* A, const T* B, bool* C, Context* context);
+template <typename T, class Context>
+PXTORCH_API void LT(int N, const T* A, const T* B, bool* C, Context* context);
+template <typename T, class Context>
+PXTORCH_API void LE(int N, const T* A, const T* B, bool* C, Context* context);
+template <typename T, class Context>
+PXTORCH_API void GT(int N, const T* A, const T* B, bool* C, Context* context);
+template <typename T, class Context>
+PXTORCH_API void GE(int N, const T* A, const T* B, bool* C, Context* context);
+
+template <typename TAlpha, typename TData, class Context>
+PXTORCH_API void
+Axpy(std::int64_t N, TAlpha alpha, const TData* X, TData* Y, Context* context);
+
+// Different from the Axpy function above, if alpha is passed in
+// as a pointer, we will assume that it lives on the Context device,
+// for example on GPU.
+template <typename TAlpha, typename TData, class Context>
+PXTORCH_API void Axpy(
+    std::int64_t N,
+    const TAlpha* alpha,
+    const TData* X,
+    TData* Y,
+    Context* context);
+
+template <typename TAlpha, typename TData, class Context>
+PXTORCH_API void Axpby(
+    std::int64_t N,
+    TAlpha alpha,
+    const TData* X,
+    TAlpha beta,
+    TData* Y,
+    Context* context);
+
+template <typename TAlpha, typename TData, class Context>
+PXTORCH_API void Axpby(
+    std::int64_t N,
+    const TAlpha* alpha,
+    const TData* X,
+    const TAlpha* beta,
+    TData* Y,
+    Context* context);
 
 } // namespace pxml
 } // namespace math
